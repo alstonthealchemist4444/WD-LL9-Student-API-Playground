@@ -45,7 +45,8 @@ countryInput.addEventListener('keydown', function (event) {
 async function fetchCountry() {
 
   const countryName = countryInput.value.trim();
-  if (!countryName) return; // nothing typed, nothing to do
+  if (!countryName)
+     return; // nothing typed, nothing to do
 
   /* ------------------------------------------------------------
      STEP 3: Show "Loading..."
@@ -53,7 +54,13 @@ async function fetchCountry() {
   showLoading();
 
   try {
+    const API_KEY = 'rc_live_d2151a2ca33a40c4bf9954c5e90dbd2d';
+    const url = `https://api.restcountries.com/countries/v5?q=${encodeURIComponent(countryName)}`;
+    const response = await fetch(url, {
+      headers: {'Authorization':`Bearer${API_KEY}`}
+    });
 
+    // string interpolation 
     /* ------------------------------------------------------------
        STEP 4: Build the fetch request
        ------------------------------------------------------------ */
@@ -62,7 +69,13 @@ async function fetchCountry() {
 
     if (!response.ok) {
       throw new Error('Country not found');
+    } catch (error) {
+      console.error(error);
     }
+
+
+
+
 
     /* ------------------------------------------------------------
        STEP 5: Convert response -> JSON
