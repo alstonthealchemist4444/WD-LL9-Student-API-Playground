@@ -60,19 +60,14 @@ async function fetchCountry() {
       headers: {'Authorization':`Bearer${API_KEY}`}
     });
 
-    // string interpolation 
-    /* ------------------------------------------------------------
-       STEP 4: Build the fetch request
-       ------------------------------------------------------------ */
+  
     const url = `https://restcountries.com/v3.1/name/${countryName}?fullText=true`;
     const response = await fetch(url);
 
- /* ------------------------------------------------------------
-       STEP 5: Convert response -> JSON
-       ------------------------------------------------------------ */
-    
+
     
     const data = await response.json();
+    hideLoading(); 
     const country = data[0]; // this API always returns an array
     console.log(data.data.objects[0].names.official);
     
