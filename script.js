@@ -67,6 +67,22 @@ async function fetchCountry() {
     const url = `https://restcountries.com/v3.1/name/${countryName}?fullText=true`;
     const response = await fetch(url);
 
+ /* ------------------------------------------------------------
+       STEP 5: Convert response -> JSON
+       ------------------------------------------------------------ */
+    
+    
+    const data = await response.json();
+    const country = data[0]; // this API always returns an array
+    console.log(data.data.objects[0].names.official);
+    
+    resultCard.classList.remove('hidden');
+
+    countryNameEl.innerTextext = data.data.objects[0].names.official;
+
+
+
+
     if (!response.ok) {
       throw new Error('Country not found');
     } catch (error) {
@@ -77,11 +93,7 @@ async function fetchCountry() {
 
 
 
-    /* ------------------------------------------------------------
-       STEP 5: Convert response -> JSON
-       ------------------------------------------------------------ */
-    const data = await response.json();
-    const country = data[0]; // this API always returns an array
+   
 
     /* ------------------------------------------------------------
        STEP 6: Display ONE property. Start simple.
